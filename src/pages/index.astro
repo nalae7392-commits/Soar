@@ -39,11 +39,6 @@ const entries = await Promise.all(
 				font-size: 0.9em;
 				margin-bottom: 0.75em;
 			}
-			.title {
-				margin: 0 0 0.75em 0;
-				font-size: 1em;
-				font-weight: 400;
-			}
 		</style>
 	</head>
 	<body>
@@ -56,7 +51,6 @@ const entries = await Promise.all(
 							<p class="date">
 								<FormattedDate date={post.data.pubDate} />
 							</p>
-							<h2 class="title">{post.data.title}</h2>
 							<div class="prose">
 								<Content />
 							</div>
