@@ -8,7 +8,7 @@ import HeaderLink from './HeaderLink.astro';
 		<a href="/" class="site-title">{SITE_TITLE}</a>
 		<span class="dot" aria-hidden="true">·</span>
 		<details class="menu">
-			<summary aria-label="Menu">☰</summary>
+			<summary aria-label="Menu">=</summary>
 			<div class="menu-links">
 				<HeaderLink href="/">blog</HeaderLink>
 				<HeaderLink href="/about">about</HeaderLink>
@@ -19,7 +19,7 @@ import HeaderLink from './HeaderLink.astro';
 <style>
 	header {
 		margin: 0;
-		padding: 2.5em 1.5em 3rem;
+		padding: 2.5em 1.5em 9.5rem;
 	}
 	nav {
 		max-width: 700px;
@@ -32,7 +32,7 @@ import HeaderLink from './HeaderLink.astro';
 		color: var(--color-text);
 		text-decoration: none;
 		font-size: 1.5rem;
-		font-weight: 400;
+		font-weight: 300;
 		letter-spacing: normal;
 	}
 	.site-title:hover {
@@ -43,6 +43,7 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	.menu {
 		position: relative;
+		margin-left: 1em;
 	}
 	.menu summary {
 		list-style: none;
@@ -68,7 +69,7 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	@media (max-width: 600px) {
 		header {
-			padding: 1.75em 3rem 2.5rem;
+			padding: 1.75em 3rem 7.5rem;
 		}
 	}
 </style>
