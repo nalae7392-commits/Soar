@@ -1,0 +1,145 @@
+/*
+  Minimal, calm, diary-like theme: flat design, generous whitespace,
+  monospace type throughout.
+ */
+
+:root {
+	--color-bg: #ffffff;
+	--color-text: #1a1a1a;
+	--color-secondary: #999999;
+	--color-code-bg: #f4f4f4;
+}
+
+body {
+	font-family: var(--font-mono);
+	margin: 0;
+	padding: 0;
+	background: var(--color-bg);
+	color: var(--color-text);
+	font-size: 16px;
+	line-height: 1.9;
+	letter-spacing: 0.02em;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+main {
+	width: 100%;
+	max-width: 700px;
+	margin: 0 auto;
+	padding: 4em 1.5em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 0.75em 0;
+	color: var(--color-text);
+	font-weight: 500;
+	line-height: 1.5;
+}
+h1 {
+	font-size: 1.5em;
+}
+h2 {
+	font-size: 1.35em;
+}
+h3 {
+	font-size: 1.2em;
+}
+h4 {
+	font-size: 1.1em;
+}
+h5 {
+	font-size: 1em;
+}
+strong,
+b {
+	font-weight: 600;
+}
+a {
+	color: var(--color-text);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+p {
+	margin: 0 0 1.5em 0;
+}
+.prose p {
+	margin-bottom: 1.75em;
+}
+textarea,
+input {
+	font-family: var(--font-mono);
+	width: 100%;
+	font-size: 16px;
+}
+table {
+	width: 100%;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 3em auto;
+}
+figure {
+	margin: 3em 0;
+}
+figcaption {
+	margin-top: 0.75em;
+	text-align: center;
+	font-size: 0.85em;
+	color: var(--color-secondary);
+}
+code {
+	font-family: var(--font-mono);
+	padding: 0.15em 0.4em;
+	background-color: var(--color-code-bg);
+}
+pre {
+	padding: 1.5em;
+	background-color: var(--color-code-bg);
+	overflow-x: auto;
+}
+pre > code {
+	all: unset;
+	font-family: var(--font-mono);
+}
+blockquote {
+	margin: 1.75em 0;
+	padding-left: 1.5em;
+	color: var(--color-secondary);
+	font-style: italic;
+}
+hr {
+	border: none;
+	border-top: 1px solid #eeeeee;
+	margin: 2.5em 0;
+}
+@media (max-width: 600px) {
+	main {
+		padding: 2.5em 1.25em;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+	clip: rect(1px 1px 1px 1px);
+	/* maybe deprecated but we need to support legacy browsers */
+	clip: rect(1px, 1px, 1px, 1px);
+	/* modern browsers, clip-path works inwards from each corner */
+	clip-path: inset(50%);
+	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	white-space: nowrap;
+}
