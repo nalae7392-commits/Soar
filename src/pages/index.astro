@@ -36,8 +36,8 @@ const entries = await Promise.all(
 			}
 			.date {
 				color: var(--color-secondary);
-				font-size: 0.9em;
-				margin-bottom: 0.75em;
+				font-size: 1.125em;
+				margin-top: 0.75em;
 			}
 		</style>
 	</head>
@@ -48,12 +48,12 @@ const entries = await Promise.all(
 				{
 					entries.map(({ post, Content }) => (
 						<article>
-							<p class="date">
-								<FormattedDate date={post.data.pubDate} />
-							</p>
 							<div class="prose">
 								<Content />
 							</div>
+							<p class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</p>
 						</article>
 					))
 				}
