@@ -11,12 +11,12 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: 'IBM Plex Mono',
+			name: 'DM Mono',
 			cssVariable: '--font-mono',
-			weights: [400, 500],
+			weights: [300, 400],
 			styles: ['normal'],
-			subsets: ['latin'],
-			fallbacks: ['D2Coding', 'Nanum Gothic Coding', 'Courier New', 'monospace'],
+			subsets: ['latin', 'latin-ext'],
+			fallbacks: ['D2Coding', 'Nanum Gothic Coding', 'monospace'],
 		},
 	],
 });
