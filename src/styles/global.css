@@ -10,6 +10,12 @@
 	--color-code-bg: #f4f4f4;
 }
 
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: var(--font-mono);
 	margin: 0;
@@ -138,7 +144,7 @@ hr {
 }
 @media (max-width: 600px) {
 	main {
-		padding: 2.5em 1.25em;
+		padding: 2.5em 1.5rem;
 	}
 }
 
