@@ -7,7 +7,7 @@ import rehypeImageCaptions from './src/lib/rehype-image-captions.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://soar-gnz5.vercel.app',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		rehypePlugins: [rehypeImageCaptions],
