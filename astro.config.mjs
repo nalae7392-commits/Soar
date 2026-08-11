@@ -3,11 +3,15 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import rehypeImageCaptions from './src/lib/rehype-image-captions.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://example.com',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		rehypePlugins: [rehypeImageCaptions],
+	},
 	fonts: [
 		{
 			provider: fontProviders.google(),
