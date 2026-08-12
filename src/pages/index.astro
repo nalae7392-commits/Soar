@@ -37,6 +37,13 @@ const entries = await Promise.all(
 				font-size: 1.125em;
 				margin-top: 0.75em;
 			}
+			.date a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.date a:hover {
+				text-decoration: underline;
+			}
 		</style>
 	</head>
 	<body>
@@ -50,7 +57,9 @@ const entries = await Promise.all(
 								<Content />
 							</div>
 							<p class="date">
-								<FormattedDate date={post.data.pubDate} />
+								<a href={`/blog/${post.id}/`}>
+									<FormattedDate date={post.data.pubDate} />
+								</a>
 							</p>
 						</article>
 					))
