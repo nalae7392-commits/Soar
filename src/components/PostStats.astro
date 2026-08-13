@@ -1,0 +1,155 @@
+---
+interface Props {
+	path: string;
+}
+
+const { path } = Astro.props;
+---
+
+<div class="stats">
+	<button class="like" type="button" data-path={path} aria-label="Like this post">
+		<svg class="stat-icon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+			<path
+				d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
+		</svg>
+		<span class="like-count"></span>
+	</button>
+
+	<span class="comments-stat" data-path={path}>
+		<svg class="stat-icon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+			<path
+				d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
+		</svg>
+		<span class="comment-count"></span>
+	</span>
+</div>
+
+<style>
+	.stats {
+		display: flex;
+		align-items: center;
+		gap: 1em;
+	}
+	.like,
+	.comments-stat {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: none;
+		color: var(--color-secondary);
+		font-family: var(--font-mono);
+		font-size: 1em;
+		line-height: 1;
+	}
+	.like {
+		cursor: pointer;
+	}
+	.stat-icon {
+		flex-shrink: 0;
+		display: block;
+	}
+	.like.liked {
+		color: var(--color-text);
+	}
+	.like.liked .stat-icon path {
+		fill: currentColor;
+	}
+	.like:disabled {
+		cursor: default;
+		opacity: 0.6;
+	}
+</style>
+
+<script>
+	import {
+		fetchCommentCount,
+		getArticleCounter,
+		updateArticleCounter,
+	} from 'https://unpkg.com/@waline/api@1/dist/index.js';
+
+	const SERVER_URL = 'https://soar-comments-2.vercel.app';
+	const LANG = 'en';
+	const REACTION_TYPE = 'reaction0';
+	const STORAGE_PREFIX = 'waline-like:';
+
+	document.querySelectorAll<HTMLButtonElement>('.like[data-path]').forEach(async (button) => {
+		const path = button.dataset.path as string;
+		const countEl = button.querySelector<HTMLSpanElement>('.like-count')!;
+
+		if (localStorage.getItem(STORAGE_PREFIX + path) === '1') {
+			button.classList.add('liked');
+		}
+
+		try {
+			const [data] = await getArticleCounter({
+				serverURL: SERVER_URL,
+				lang: LANG,
+				paths: [path],
+				type: [REACTION_TYPE],
+			});
+
+			countEl.textContent = String((data as Record<string, number>)[REACTION_TYPE] ?? 0);
+		} catch {
+			countEl.textContent = '0';
+		}
+
+		button.addEventListener('click', async () => {
+			if (button.disabled) return;
+			button.disabled = true;
+
+			const isLiked = button.classList.contains('liked');
+			const current = Number(countEl.textContent) || 0;
+
+			try {
+				await updateArticleCounter({
+					serverURL: SERVER_URL,
+					lang: LANG,
+					path,
+					type: REACTION_TYPE,
+					action: isLiked ? 'desc' : 'inc',
+				});
+
+				countEl.textContent = String(Math.max(0, current + (isLiked ? -1 : 1)));
+				button.classList.toggle('liked', !isLiked);
+
+				if (isLiked) {
+					localStorage.removeItem(STORAGE_PREFIX + path);
+				} else {
+					localStorage.setItem(STORAGE_PREFIX + path, '1');
+				}
+			} finally {
+				button.disabled = false;
+			}
+		});
+	});
+
+	document.querySelectorAll<HTMLElement>('.comments-stat[data-path]').forEach(async (el) => {
+		const path = el.dataset.path as string;
+		const countEl = el.querySelector<HTMLSpanElement>('.comment-count')!;
+
+		try {
+			const [count] = await fetchCommentCount({
+				serverURL: SERVER_URL,
+				lang: LANG,
+				paths: [path],
+			});
+
+			countEl.textContent = String(count ?? 0);
+		} catch {
+			countEl.textContent = '0';
+		}
+	});
+</script>
