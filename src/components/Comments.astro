@@ -15,6 +15,8 @@
 			meta: ['nick'],
 			requiredMeta: [],
 			emoji: false,
+			imageUploader: false,
+			search: false,
 		});
 	</script>
 </div>
@@ -22,5 +24,29 @@
 <style>
 	.comments {
 		margin-top: 6em;
+		font-family: var(--font-mono);
+		--waline-color: #1a1a1a;
+		--waline-theme-color: #1a1a1a;
+		--waline-active-color: #000000;
+		--waline-bg-color: #ffffff;
+		--waline-bg-color-light: #f8f8f8;
+		--waline-bg-color-hover: #f0f0f0;
+		--waline-border-color: #ddd;
+		--waline-badge-color: #666666;
+	}
+	/* Waline has no "preview" config option to disable the toggle, so it's hidden by
+	   matching the English-locale title it renders with. */
+	.comments :global(button.wl-action[title='Preview']) {
+		display: none;
+	}
+	.comments :global(.wl-panel) {
+		margin: 0.25em;
+	}
+	.comments :global(.wl-editor) {
+		min-height: 6em;
+		margin: 0.5em 0.375em;
+	}
+	.comments :global(.wl-footer) {
+		margin: 0.375em 0.5em;
 	}
 </style>
