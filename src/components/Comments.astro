@@ -21,6 +21,7 @@
 			noCopyright: true,
 			locale: {
 				nick: 'Name',
+				anonymous: '',
 			},
 		});
 	</script>
@@ -38,6 +39,20 @@
 		--waline-bg-color-hover: #f0f0f0;
 		--waline-border-color: #ddd;
 		--waline-badge-color: #666666;
+		--waline-info-color: var(--color-secondary);
+	}
+	/* No avatar photos: hide the whole flex column, not just the <img>, so its
+	   reserved margin collapses too and comments sit flush left. */
+	.comments :global(.wl-user) {
+		display: none;
+	}
+	/* Browser/OS/location tags have no client config option (there is no "ua" key) -
+	   they're plain spans inside .wl-meta, so hide the row directly. */
+	.comments :global(.wl-meta) {
+		display: none;
+	}
+	.comments :global(.wl-card) {
+		border-bottom: none;
 	}
 	/* Waline has no "preview" config option to disable the toggle, so it's hidden by
 	   matching the English-locale title it renders with. */
@@ -54,6 +69,7 @@
 	}
 	.comments :global(.wl-panel) {
 		margin: 0.25em;
+		border: none;
 	}
 	.comments :global(.wl-editor) {
 		min-height: 6em;
