@@ -17,6 +17,11 @@
 			emoji: false,
 			imageUploader: false,
 			search: false,
+			noRss: true,
+			noCopyright: true,
+			locale: {
+				nick: 'Name',
+			},
 		});
 	</script>
 </div>
@@ -37,6 +42,14 @@
 	/* Waline has no "preview" config option to disable the toggle, so it's hidden by
 	   matching the English-locale title it renders with. */
 	.comments :global(button.wl-action[title='Preview']) {
+		display: none;
+	}
+	/* Word count next to the editor; distinct from .wl-count, which is the total
+	   comment tally shown above the list and stays visible. */
+	.comments :global(.wl-text-number) {
+		display: none;
+	}
+	.comments :global(.wl-sort) {
 		display: none;
 	}
 	.comments :global(.wl-panel) {
